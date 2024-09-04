@@ -7,7 +7,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useLoadFonts } from "../fonts";
-
+import { Link } from "expo-router";
 const background = require("../../assets/img/loginbackground.jpeg");
 
 export default function Login() {
@@ -34,9 +34,11 @@ export default function Login() {
           </View>
         </View>
         <View style={styles.buttons}>
-          <TouchableOpacity style={styles.button1}>
-            <Text style={styles.buttonText1}>Entrar</Text>
-          </TouchableOpacity>
+          <Link href="/entrar" asChild>
+            <TouchableOpacity style={styles.button1}>
+              <Text style={styles.buttonText1}>Entrar</Text>
+            </TouchableOpacity>
+          </Link>
           <TouchableOpacity style={styles.button2}>
             <Text style={styles.buttonText2}>Criar uma Conta</Text>
           </TouchableOpacity>
@@ -62,7 +64,7 @@ const styles = StyleSheet.create({
     marginHorizontal: "10%",
   },
   top: {
-    flex: 2
+    flex: 2,
   },
   title: {
     color: "white",
@@ -72,8 +74,8 @@ const styles = StyleSheet.create({
     lineHeight: 50,
   },
   buttons: {
-    backgroundColor: "#112e42",
-    flex: 0.45,
+    backgroundColor: "#0c2c43",
+    flex: 0.55,
     width: "100%",
     height: "100%",
     justifyContent: "center",
@@ -84,15 +86,15 @@ const styles = StyleSheet.create({
     backgroundColor: "#cabcba",
     height: "25%",
     width: "40%",
-    justifyContent: "center",
+    padding: "10px",
     alignItems: "center",
     borderRadius: 10,
   },
   button2: {
     backgroundColor: "#10446c",
-    height: "15%",
+    height: "20%",
     width: "45%",
-    justifyContent: "center",
+    padding: "10px",
     alignItems: "center",
     borderRadius: 10,
   },
