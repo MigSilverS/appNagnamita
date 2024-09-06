@@ -7,11 +7,16 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useLoadFonts } from "../fonts";
-import { Link } from "expo-router";
+import { useNavigation } from "@react-navigation/native";
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { NavigationContainer } from '@react-navigation/native';
+import Entrar from './entrar/index';
+import Cadastrar from './cadastrar/index';
 const background = require("../../assets/img/loginbackground.jpeg");
 
-export default function Login() {
+function Login() {
   const fontsLoaded = useLoadFonts();
+  const navigation = useNavigation();
 
   if (!fontsLoaded) {
     return (
@@ -34,17 +39,40 @@ export default function Login() {
           </View>
         </View>
         <View style={styles.buttons}>
-          <Link href="/entrar" asChild>
-            <TouchableOpacity style={styles.button1}>
-              <Text style={styles.buttonText1}>Entrar</Text>
-            </TouchableOpacity>
-          </Link>
-          <TouchableOpacity style={styles.button2}>
+          <TouchableOpacity style={styles.button1} onPress={() => navigation.navigate('Entrar')}>
+            <Text style={styles.buttonText1}>Entrar</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button2} onPress={() => navigation.navigate('Cadastrar')}>
             <Text style={styles.buttonText2}>Criar uma Conta</Text>
           </TouchableOpacity>
         </View>
       </ImageBackground>
     </View>
+  );
+}
+
+export default function Navigation() {
+  const Stack = createNativeStackNavigator();
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen
+          name="Welcome"
+          component={Login}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen name="Entrar" component={Entrar}
+          options={{
+            title: '', headerShown: false
+          }}
+        />
+        <Stack.Screen name="Cadastrar" component={Cadastrar}
+          options={{
+            title: '', headerShown: false
+          }}
+        />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
@@ -86,7 +114,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#cabcba",
     height: "25%",
     width: "40%",
-    padding: "10px",
+    justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
   },
@@ -94,7 +122,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#10446c",
     height: "20%",
     width: "45%",
-    padding: "10px",
+    justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
   },
