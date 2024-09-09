@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     lineHeight: 50,
   },
   buttons: {
-    backgroundColor: "#0c2c43",
     flex: 0.55,
     width: "100%",
     height: "100%",
