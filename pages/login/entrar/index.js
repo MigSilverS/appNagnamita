@@ -36,6 +36,7 @@ export default function Entrar() {
         <Image source={logo} style={styles.logo} />
       </View>
       <View style={styles.form}>
+        <Text style={styles.title}>Login</Text>
         <View style={styles.inputContainer}>
           <Text style={styles.label}>Email</Text>
           <TextInput
@@ -53,6 +54,7 @@ export default function Entrar() {
             style={styles.input}
           />
         </View>
+        <TouchableOpacity style={styles.button}><Text style={styles.buttonText}>Entrar</Text></TouchableOpacity>
       </View>
     </View>
   )
@@ -73,11 +75,20 @@ const styles = StyleSheet.create({
     width: '60%',
     resizeMode: 'contain'
   },
+  title: {
+    color: "black",
+    fontSize: 30,
+    textAlign: "center",
+    fontFamily: "Bodoni-Moda-SC",
+    lineHeight: 30,
+    paddingBottom: '5%',
+    fontWeight: 'bold'
+  },
   form: {
     flex: 1,
     backgroundColor: 'white',
     borderTopStartRadius: 100,
-    paddingTop: '40%',
+    paddingTop: '20%',
     alignItems: 'center',
     gap: 30
   },
@@ -97,5 +108,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 10,
     fontSize: 16
-  }
+  },
+  button: {
+    backgroundColor: "#10446c",
+    height: "13%",
+    width: "28%",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: "bold",
+    fontSize: 20,
+  },
 })

@@ -111,10 +111,8 @@ const styles = StyleSheet.create({
   },
   button1: {
     backgroundColor: "#cabcba",
-    height: "25%",
+    height: "30%",
     width: "40%",
-    justifyContent: "center",
-    alignItems: "center",
     borderRadius: 10,
   },
   button2: {
@@ -122,14 +120,15 @@ const styles = StyleSheet.create({
     height: "20%",
     width: "45%",
     justifyContent: "center",
-    alignItems: "center",
     borderRadius: 10,
   },
   buttonText1: {
+    textAlign: "center",
     fontFamily: "Bodoni-Moda-SC-Bold",
     fontSize: 30,
   },
   buttonText2: {
+    textAlign: "center",
     color: "white",
     fontFamily: "Bodoni-Moda-SC-Bold",
     fontSize: 18,
