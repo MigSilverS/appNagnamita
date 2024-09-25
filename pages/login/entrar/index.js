@@ -9,19 +9,43 @@ import {
   TextInput
 } from "react-native";
 import { useForm } from 'react-hook-form'
+import { useNavigation, CommonActions } from "@react-navigation/native";
 import React, { useEffect } from 'react';
 
 import { useLoadFonts } from "../../fonts";
 const logo = require('../../../assets/img/Nagnamita.png')
 
 export default function Entrar() {
+  const navigation = useNavigation();
   const fontsLoaded = useLoadFonts();
   const { register, setValue, handleSubmit } = useForm()
+  const email = "nanami@gmail.com";
+  const senha = "123456";
+
 
   useEffect(() => {
     register('email')
     register('password')
   }, [register])
+
+  const onSubmit = data => {
+    // Verifica se as credenciais estão corretas
+    if (data.email === email && data.password === senha) {
+      // Navegar para a próxima página, se necessário
+      console.log("Login bem-sucedido!");
+      routeName = 'Home';
+      navigation.dispatch(
+        CommonActions.reset({
+          index: 0,
+          routes: [{ name: routeName }],
+        })
+      );
+    } else {
+      console.log("Email ou senha incorretos.");
+      // Exiba uma mensagem de erro, se desejar
+    }
+  };
+
   if (!fontsLoaded) {
     return (
       <View>
@@ -54,7 +78,7 @@ export default function Entrar() {
             style={styles.input}
           />
         </View>
-        <TouchableOpacity style={styles.button}><Text style={styles.buttonText}>Entrar</Text></TouchableOpacity>
+        <TouchableOpacity onPress={handleSubmit(onSubmit)} style={styles.button}><Text style={styles.buttonText}>Entrar</Text></TouchableOpacity>
       </View>
     </View>
   )

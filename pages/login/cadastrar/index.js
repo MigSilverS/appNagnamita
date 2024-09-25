@@ -15,7 +15,7 @@ import {
   import { useLoadFonts } from "../../fonts";
   const logo = require('../../../assets/img/Nagnamita.png')
   
-  export default function Entrar() {
+  export default function Cadastrar() {
     const fontsLoaded = useLoadFonts();
     const { register, setValue, handleSubmit } = useForm()
   
