@@ -13,6 +13,9 @@ import { NavigationContainer } from '@react-navigation/native';
 import Entrar from "./pages/login/entrar";
 import Cadastrar from "./pages/login/cadastrar";
 import Home from "./pages/home";
+import { Video, ResizeMode } from "expo-av";
+import { useEffect, useState } from "react";
+
 const background = require("./assets/img/loginbackground.jpeg");
 
 function Login() {
@@ -26,6 +29,7 @@ function Login() {
       </View>
     );
   }
+
   return (
     <View style={styles.container}>
       <StatusBar />
@@ -52,36 +56,74 @@ function Login() {
   );
 }
 
-export default function App() {
-  const Stack = createNativeStackNavigator();
-    return (
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Welcome"
-            component={Login}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen name="Entrar" component={Entrar}
-            options={{
-              title: '', headerShown: false
-            }}
-          />
-          <Stack.Screen name="Cadastrar" component={Cadastrar}
-            options={{
-              title: '', headerShown: false
-            }}
-          />
-          <Stack.Screen name="Home" component={Home}
-            options={{
-              title: '', headerShown: false
-            }}
-          />
-        </Stack.Navigator>
-      </NavigationContainer>
-    );
+function Splash({ onFinish }) {
+  return (
+    <Video
+      style={[StyleSheet.absoluteFill, { backgroundColor: "#102736" }]}
+      resizeMode={ResizeMode.CONTAIN}
+      source={require('./assets/img/Nagnamita.mp4')}
+      isLooping={false}
+      shouldPlay={true}
+      onPlaybackStatusUpdate={status => {
+        if (status.didJustFinish) {
+          onFinish();  // Chama a função quando o vídeo termina
+        }
+      }}
+    />
+  );
 }
 
+export default function App() {
+  const Stack = createNativeStackNavigator();
+  const [isSplashVisible, setSplashVisible] = useState(true);
+
+  // Efeito para esconder a tela de splash após 3 segundos
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setSplashVisible(false);
+    }, 3000); // 3 segundos
+
+    return () => clearTimeout(timeout); // Limpa o timeout ao desmontar
+  }, []);
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator>
+        {isSplashVisible ? (
+          <Stack.Screen
+            name="Splash"
+            options={{ headerShown: false }}
+          >
+            {() => <Splash onFinish={() => setSplashVisible(false)} />}
+          </Stack.Screen>
+        ) : (
+          <>
+            <Stack.Screen
+              name="Welcome"
+              component={Login}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen name="Entrar" component={Entrar}
+              options={{
+                title: '', headerShown: false
+              }}
+            />
+            <Stack.Screen name="Cadastrar" component={Cadastrar}
+              options={{
+                title: '', headerShown: false
+              }}
+            />
+            <Stack.Screen name="Home" component={Home}
+              options={{
+                title: '', headerShown: false
+              }}
+            />
+          </>
+        )}
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
 
 const styles = StyleSheet.create({
   container: {

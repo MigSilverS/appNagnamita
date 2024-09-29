@@ -6,7 +6,8 @@ import {
   StatusBar,
   TouchableOpacity,
   Image,
-  TextInput
+  TextInput,
+  Alert
 } from "react-native";
 import { useForm } from 'react-hook-form'
 import { useNavigation, CommonActions } from "@react-navigation/native";
@@ -29,9 +30,7 @@ export default function Entrar() {
   }, [register])
 
   const onSubmit = data => {
-    // Verifica se as credenciais estão corretas
     if (data.email === email && data.password === senha) {
-      // Navegar para a próxima página, se necessário
       console.log("Login bem-sucedido!");
       routeName = 'Home';
       navigation.dispatch(
@@ -41,8 +40,11 @@ export default function Entrar() {
         })
       );
     } else {
-      console.log("Email ou senha incorretos.");
-      // Exiba uma mensagem de erro, se desejar
+      Alert.alert(
+        "Erro de Login",
+        "Email ou senha incorretos.",
+        [{ text: "OK" }]
+      );
     }
   };
 
