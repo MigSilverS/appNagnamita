@@ -1,6 +1,8 @@
 import { View, Text, StyleSheet, ScrollView, Image, StatusBar, SafeAreaView, TouchableOpacity } from "react-native";
 import { useLoadFonts } from "../fonts/index";
 import Swiper from 'react-native-swiper';
+import suits from '../content/suits.json';
+import imageMappings from "../content/imageMapping";
 
 const logo = require("../../assets/img/Nagnamita.png");
 const banner = require("../../assets/img/banner.jpeg");
@@ -9,39 +11,6 @@ const smallImage1 = require("../../assets/img/foto2.jpeg");
 const smallImage2 = require("../../assets/img/foto3.jpeg");
 const smallImage3 = require("../../assets/img/foto4.jpeg");
 const smallImage4 = require("../../assets/img/foto5.jpeg");
-
-const suits = [
-    {
-        image: require("../../assets/img/suit1.png"),
-        name: "Terno 2 Toni Sem Forro Gold - Marrom",
-        price: "R$ 3.999,90",
-    },
-    {
-        image: require("../../assets/img/suit2.png"),
-        name: "Terno Super 120'S Slim Liso Gold - Cinza",
-        price: "R$ 4.999,90",
-    },
-    {
-        image: require("../../assets/img/suit3.png"),
-        name: "Terno Super 120'S Slim Liso Gold - Preto",
-        price: "R$ 4.999,90",
-    },
-    {
-        image: require("../../assets/img/suit4.png"),
-        name: "Terno Xadrez Brooksgold - Azul Claro",
-        price: "R$ 4.599,90",
-    },
-    {
-        image: require("../../assets/img/suit5.png"),
-        name: "Terno Super 120'S Slim Liso Gold - Preto",
-        price: "R$ 4.999,90",
-    },
-    {
-        image: require("../../assets/img/suit6.png"),
-        name: "Terno Marzoto Super 150’S Slim Cetim - Preto",
-        price: "R$ 6.999,90",
-    },
-];
 
 export default function Home() {
     const fontsLoaded = useLoadFonts();
@@ -68,7 +37,7 @@ export default function Home() {
                 </View>
 
                 <View style={styles.mainBanner}>
-                    <Image source={banner} style={styles.bannerImage} />
+                    <Image source={banner} style={styles.bannerImage} />    
                     <Text style={styles.bannerText}>Classe é uma escolha</Text>
                 </View>
 
@@ -96,10 +65,9 @@ export default function Home() {
                     <Text style={styles.sectionTitle}>Nossos Ternos à Venda</Text>
                     <View style={styles.carouselContainer}>
                         <Swiper style={styles.swiper} showsPagination={true}>
-                            {suits.map((suit, index) => (
-
-                                <View key={index} style={styles.slide}>
-                                    <Image source={suit.image} style={styles.suitImage} />
+                            {suits.suits.map((suit) => (
+                                <View key={suit.id} style={styles.slide}>
+                                    <Image source={imageMappings[suit.image]} style={styles.suitImage} />
                                     <TouchableOpacity>
                                         <Text style={styles.suitName}>{suit.name}</Text>
                                         <Text style={styles.suitPrice}>{suit.price}</Text>
@@ -167,15 +135,15 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
     },
     bannerText: {
-        paddingTop: "65%",
-        paddingLeft: "2%",
+        paddingTop: "70%",
+        paddingLeft: "1%",
         color: 'white',
-        fontSize: 42,
+        fontSize: 35,
         textAlign: 'left',
         fontFamily: "Bodoni-Moda-SC",
     },
     sectionTitle: {
-        fontSize: 24,
+        fontSize: 28,
         textAlign: 'center',
         fontFamily: "Bodoni-Moda-SC",
         marginVertical: 50,
@@ -221,7 +189,7 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
     },
     carouselContainer: {
-        backgroundColor: '#cabcba',
+        backgroundColor: 'white',
         height: 500,
         borderRadius: 10,
         overflow: 'hidden',

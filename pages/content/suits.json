@@ -1,0 +1,40 @@
+{
+    "suits": [
+        {
+            "id": 1,
+            "image": "suit1",
+            "name": "Terno 2 Toni Sem Forro Gold - Marrom",
+            "price": "R$ 3.999,90"
+        },
+        {
+            "id": 2,
+            "image": "suit2",
+            "name": "Terno Super 120'S Slim Liso Gold - Cinza",
+            "price": "R$ 4.999,90"
+        },
+        {
+            "id": 3,
+            "image": "suit3",
+            "name": "Terno Super 120'S Slim Liso Gold - Preto",
+            "price": "R$ 4.999,90"
+        },
+        {
+            "id": 4,
+            "image": "suit4",
+            "name": "Terno Xadrez Brooksgold - Azul Claro",
+            "price": "R$ 4.599,90"
+        },
+        {
+            "id": 5,
+            "image": "suit5",
+            "name": "Terno Super 120'S Slim Liso Gold - Preto",
+            "price": "R$ 4.999,90"
+        },
+        {
+            "id": 6,
+            "image": "suit6",
+            "name": "Terno Marzoto Super 150’S Slim Cetim - Preto",
+            "price": "R$ 6.999,90"
+        }
+    ]
+}
