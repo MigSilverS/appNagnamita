@@ -1,16 +1,10 @@
 import { View, Text, StyleSheet, ScrollView, Image, StatusBar, SafeAreaView, TouchableOpacity } from "react-native";
-import { useLoadFonts } from "../fonts/index";
 import Swiper from 'react-native-swiper';
+import { useLoadFonts } from "../fonts/index";
 import suits from '../content/suits.json';
+import banners from '../content/banner.json'; // Importação do JSON de banners
 import imageMappings from "../content/imageMapping";
-
-const logo = require("../../assets/img/Nagnamita.png");
-const banner = require("../../assets/img/banner.jpeg");
-const largeImage = require("../../assets/img/foto1.jpeg");
-const smallImage1 = require("../../assets/img/foto2.jpeg");
-const smallImage2 = require("../../assets/img/foto3.jpeg");
-const smallImage3 = require("../../assets/img/foto4.jpeg");
-const smallImage4 = require("../../assets/img/foto5.jpeg");
+import { Header } from "../../components/header/header";
 
 export default function Home() {
     const fontsLoaded = useLoadFonts();
@@ -27,56 +21,49 @@ export default function Home() {
         <SafeAreaView style={styles.safeArea}>
             <StatusBar />
             <ScrollView style={styles.container}>
-                <View style={styles.header}>
-                    <Image source={logo} style={styles.logo} />
-                    <View style={styles.menu}>
-                        <TouchableOpacity><Text style={styles.menuItem}>Ternos</Text></TouchableOpacity>
-                        <TouchableOpacity><Text style={styles.menuItem}>Coleções</Text></TouchableOpacity>
-                        <TouchableOpacity><Text style={styles.menuItem}>Essenciais</Text></TouchableOpacity>
-                    </View>
-                </View>
+                <Header />
 
+                {/* Banner */}
                 <View style={styles.mainBanner}>
-                    <Image source={banner} style={styles.bannerImage} />    
-                    <Text style={styles.bannerText}>Classe é uma escolha</Text>
+                    <Swiper style={styles.wrapper} showsButtons={true} autoplay={true} autoplayTimeout={5} showsPagination={false}>
+                        {banners.banners.map((banner, index) => (
+                            <View key={index} style={styles.bannerSlide}>
+                                <Image source={imageMappings[banner.image]} style={styles.bannerImage} />
+                            </View>
+                        ))}
+                    </Swiper>
                 </View>
 
-                <View style={styles.latestCollection}>
-                    <Text style={styles.sectionTitle}>Últimas Coleções</Text>
-                    <View style={styles.imageContainer}>
-                        <View style={styles.largeImageContainer}>
-                            <TouchableOpacity>
-                                <Image source={largeImage} style={styles.largeImage} />
-                                <View style={styles.textOverlay}>
-                                    <Text style={styles.textOverlayText}>Compre já seu terno</Text>
-                                </View>
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styles.smallImagesContainer}>
-                            <Image source={smallImage1} style={styles.smallImage} />
-                            <Image source={smallImage2} style={styles.smallImage} />
-                            <Image source={smallImage3} style={styles.smallImage} />
-                            <Image source={smallImage4} style={styles.smallImage} />
-                        </View>
-                    </View>
+                {/* Promotional Categories */}
+                <View style={styles.promotionalSection}>
+                    <TouchableOpacity style={styles.promoBox}>
+                        <Text style={styles.promoText}>Escolhas casuais</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.promoBox}>
+                        <Text style={styles.promoText}>Ternos para Casamento</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.promoBox}>
+                        <Text style={styles.promoText}>Para seu estilo pessoal</Text>
+                    </TouchableOpacity>
                 </View>
 
+                {/* Product List */}
                 <View style={styles.onSale}>
-                    <Text style={styles.sectionTitle}>Nossos Ternos à Venda</Text>
-                    <View style={styles.carouselContainer}>
-                        <Swiper style={styles.swiper} showsPagination={true}>
-                            {suits.suits.map((suit) => (
-                                <View key={suit.id} style={styles.slide}>
-                                    <Image source={imageMappings[suit.image]} style={styles.suitImage} />
-                                    <TouchableOpacity>
-                                        <Text style={styles.suitName}>{suit.name}</Text>
-                                        <Text style={styles.suitPrice}>{suit.price}</Text>
-                                    </TouchableOpacity>
+                    <Text style={styles.sectionTitle}>Nossos ternos a Venda</Text>
+                    <View style={styles.productList}>
+                        {suits.suits.map((item) => (
+                            <View key={item.id} style={styles.slide}>
+                                <Image source={imageMappings[item.image]} style={styles.suitImage} />
+                                <View style={styles.suitDetails}>
+                                    <Text style={styles.suitName}>{item.name}</Text>
+                                    <Text style={styles.suitPrice}>{item.price}</Text>
                                 </View>
-                            ))}
-                        </Swiper>
+                            </View>
+                        ))}
                     </View>
                 </View>
+
+                {/* Footer */}
                 <View style={styles.footer}>
                     <Text style={styles.footerText}>© 2024 Nagnamita. Todos os direitos reservados.</Text>
                     <View style={styles.socialIcons}>
@@ -97,124 +84,85 @@ const styles = StyleSheet.create({
     },
     container: {
         flex: 1,
-        backgroundColor: '#0B2B40',
-    },
-    header: {
-        elevation: 10,
-        backgroundColor: '#0B2B40',
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingVertical: 10,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowRadius: 2,
-        zIndex: 1,
-    },
-    logo: {
-        width: 100,
-        height: 100,
-        resizeMode: 'center',
-    },
-    menu: {
-        flexDirection: 'row',
-    },
-    menuItem: {
-        marginHorizontal: 8,
-        fontSize: 16,
-        color: 'white',
-        fontFamily: "Bodoni-Moda-SC",
+        backgroundColor: 'white',
     },
     mainBanner: {
         height: 400,
+        marginBottom: 20,
+    },
+    wrapper: {
+        height: '100%',
+    },
+    bannerSlide: {
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     bannerImage: {
-        position: "absolute",
         width: "100%",
         height: "100%",
         resizeMode: 'cover',
     },
-    bannerText: {
-        paddingTop: "70%",
-        paddingLeft: "1%",
-        color: 'white',
-        fontSize: 35,
-        textAlign: 'left',
-        fontFamily: "Bodoni-Moda-SC",
-    },
-    sectionTitle: {
-        fontSize: 28,
-        textAlign: 'center',
-        fontFamily: "Bodoni-Moda-SC",
-        marginVertical: 50,
-        color: 'white',
-    },
-    latestCollection: {
-        paddingHorizontal: 10,
-    },
-    imageContainer: {
+    promotionalSection: {
         flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginBottom: 30,
     },
-    largeImageContainer: {
-        width: '50%',
-        position: 'relative',
-    },
-    largeImage: {
-        width: '100%',
-        height: 300,
-        resizeMode: 'cover',
-    },
-    textOverlay: {
-        position: 'absolute',
-        bottom: 20,
-        backgroundColor: 'rgba(0, 0, 0, 0.6)',
-        paddingVertical: 10,
-        paddingHorizontal: 20,
-        borderRadius: 5,
-    },
-    textOverlayText: {
-        color: 'white',
-        fontSize: 18,
-        fontFamily: "Bodoni-Moda-SC",
-    },
-    smallImagesContainer: {
-        width: '50%',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        justifyContent: 'space-between',
-    },
-    smallImage: {
-        width: '50%',
-        height: 150,
-        resizeMode: 'cover',
-    },
-    carouselContainer: {
-        backgroundColor: 'white',
-        height: 500,
-        borderRadius: 10,
-        overflow: 'hidden',
-    },
-    wrapper: {
-    },
-    slide: {
-        flex: 1,
+    promoBox: {
+        width: '30%',
+        height: 100,
+        backgroundColor: '#0B2B40',
         justifyContent: 'center',
         alignItems: 'center',
+        borderRadius: 10,
+    },
+    promoText: {
+        color: 'white',
+        fontSize: 16,
+        fontFamily: 'Bodoni-Moda-SC',
+    },
+    onSale: {
+        width: "100%",
+    },
+    sectionTitle: {
+        fontSize: 24,
+        textAlign: 'center',
+        fontFamily: 'Bodoni-Moda-SC-Bold',
+        marginBottom: 20,
+    },
+    productList: {
+        flexWrap: "wrap",
+        justifyContent: 'center',
+        gap: 50,
+        flexDirection: "row",
+    },
+    slide: {
+        width: '40%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+        marginBottom: 20,
+        borderWidth: 1,
+        borderColor: '#ccc',
+        borderRadius: 10,
+        backgroundColor: '#f9f9f9',
     },
     suitImage: {
-        width: '100%',
-        height: '75%',
+        width: 150,
+        height: 200,
         resizeMode: 'contain',
     },
+    suitDetails: {
+        alignItems: 'center',
+        marginTop: 10,
+    },
     suitName: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
     },
     suitPrice: {
-        fontSize: 16,
+        fontSize: 14,
         color: '#888',
-        textAlign: 'center',
     },
     footer: {
         backgroundColor: '#0B2B40',

@@ -53,6 +53,7 @@ function Login() {
         </View>
       </ImageBackground>
     </View>
+    // <Home/>
   );
 }
 

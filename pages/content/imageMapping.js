@@ -1,4 +1,6 @@
 const imageMappings = {
+    "banner1": require('../../assets/img/banner1.png'),
+    "banner2": require('../../assets/img/banner2.png'),
     "suit1": require('../../assets/img/suit1.png'),
     "suit2": require('../../assets/img/suit2.png'),
     "suit3": require('../../assets/img/suit3.png'),

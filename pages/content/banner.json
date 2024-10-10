@@ -1,0 +1,10 @@
+{
+    "banners": [
+        {
+            "image": "banner1"
+        },
+        {
+            "image": "banner2"
+        }
+    ]
+}
